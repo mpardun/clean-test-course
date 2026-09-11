@@ -5,7 +5,7 @@ on:
     branches:
       - lesson-5
 jobs:
-    security_test:
+  security_test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -13,6 +13,10 @@ jobs:
     name: Run pycharm security test
     steps:
       - uses: actions/checkout@v7.0.1
+      - name: disable debug
+        run: |
+          sed -i 's/DEBUG = True/DEBUG = False/g' \
+          hangry_api/hangry_api/settings.py
       - name: Run pycharm security test
         uses: tonybaloney/pycharm-security@1.25.1
   unit_test:
@@ -47,3 +51,12 @@ jobs:
         run: zip -r deploy.zip . -x '*.git*'
       - name: '**PLACEHOLDER** Deploy to Elastic Beanstalk'
         run: echo Placeholder for Deployment
+
+  security_test:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      with:
+        target: 'https://hangryhippo.quantic.host'
+      - name: ZAP Baseline Scan
+      uses: zaproxy/action-baseline@v0.15.0
