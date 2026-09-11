@@ -28,4 +28,3 @@ class Total():
     subTotal = Subtotal.calculate(order)
     total = (subTotal + deliveryFee) * 1.0825
     return (0,round(total,2)) [ round(total,2) > 0 ]
-

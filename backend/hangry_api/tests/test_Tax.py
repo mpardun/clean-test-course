@@ -9,4 +9,3 @@ def test_SimpleTax():
   tax = Tax.calculate(subtotal, deliveryFee)
   #Assert
   assert tax == 1.53
-

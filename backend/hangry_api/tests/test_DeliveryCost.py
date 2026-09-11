@@ -34,4 +34,3 @@ def test_LittleItems():
   cost = Delivery.calculate(order,delivery_distance)
   #Assert
   assert cost == 3.50
-
